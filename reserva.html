@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Reserva</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h3>Nova Reserva</h3>
+
+    <form id="formReserva">
+        <div class="mt-3">
+            <label class="form-label">Sala</label>
+            <select class="form-select" id="sala" required>
+                <option value="">Selecione...</option>
+                <option>Sala 1</option>
+                <option>Sala 2</option>
+                <option>Sala 3</option>
+            </select>
+        </div>
+
+        <div class="mt-3">
+            <label class="form-label">Data</label>
+            <input type="date" class="form-control" id="data" required>
+        </div>
+
+        <div class="mt-3">
+            <label class="form-label">Horário</label>
+            <input type="time" class="form-control" id="horario" required>
+        </div>
+
+        <div class="mt-3">
+            <label class="form-label">Motivo</label>
+            <input type="text" class="form-control" id="motivo" required>
+        </div>
+
+        <button class="btn btn-primary mt-4" type="submit">Salvar Reserva</button>
+        <a href="agenda.html" class="btn btn-secondary mt-4 ms-2">Voltar</a>
+    </form>
+</div>
+
+<script>
+document.getElementById("formReserva").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const novaReserva = {
+        sala: document.getElementById("sala").value,
+        data: document.getElementById("data").value,
+        horario: document.getElementById("horario").value,
+        motivo: document.getElementById("motivo").value
+    };
+
+    // Recuperar reservas existentes
+    const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+
+    // Adicionar nova reserva
+    reservas.push(novaReserva);
+
+    // Salvar no localStorage
+    localStorage.setItem("reservas", JSON.stringify(reservas));
+
+    // Ir para a tela de confirmação
+    window.location.href = "confirmacao.html";
+});
+</script>
+
+</body>
+</html>
